@@ -16,7 +16,13 @@ from Gestiones.GestionRestaurante import *
 
 class App():
     def __init__(self) -> None:
-        self.leerDeTxt(self)
+        self.equipos = []
+        self.estadios = []
+        self.partidos = []
+        self.clientes = []
+        self.tickets = []
+        self.leerDeTxt()
+
         if self.equipos == []:
 
             self.equipos = self.get_Equipos()
