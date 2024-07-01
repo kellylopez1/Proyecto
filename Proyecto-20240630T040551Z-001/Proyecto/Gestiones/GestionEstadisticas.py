@@ -34,8 +34,8 @@ class GestionEstadisticas():
                       Boletos vendidos: {partido.vendidos}
                       Asistencia: {partido.asistencia}
                       """)
-                if partido.venta != 0:
-                    print(f"             Asistencia/Venta = {partido.asistencia/partido.venta}")
+                if partido.vendidos != 0:
+                    print(f"             Asistencia/Venta = {partido.asistencia/partido.vendidos}")
                 else:
                     print(f"             Asistencia/Venta = 0")
 
@@ -49,12 +49,16 @@ class GestionEstadisticas():
             print(f"CON UN TOTAL DE {p[0].vendidos} asistentes")
         elif opcion == '5':
             estadio = escoger_Opcion(self.estadios)
-            restaurante = escoger_Opcion(estadio.restaurants)
+            restaurante = escoger_Estadio(estadio.restaurants)
             p = sorted(restaurante.products, key=lambda x: x.vendido, reverse=True)
             for i in range(3):
                 print(f"{i+1} {p[i].__str__()}")
                 print(f"CON UN TOTAL DE {p[i].vendido} vendidos")
         elif opcion == "6":
-            p = sorted(self.clientes, key=lambda x: x.comprados, reverse=True)
-            for i in range(3):
-                print(f"{i+1}{p[i].name} CON UN TOTAL DE {p[i].vendido} tickets comprados")
+            if len(self.clientes) > 2:
+                p = sorted(self.clientes, key=lambda x: x.comprados, reverse=True)
+
+                for i in range(3):
+                    print(f"{i+1}{p[i].nombre} CON UN TOTAL DE {p[i].comprados} tickets comprados")
+            else:
+                print("No hay suficientes clientes")

@@ -16,6 +16,7 @@ from Gestiones.GestionRestaurante import *
 
 class App():
     def __init__(self) -> None:
+        self.leerDeTxt(self)
         self.equipos = self.get_Equipos()
         self.estadios = self.get_Estadios()
         self.partidos = self.get_Partidos()
