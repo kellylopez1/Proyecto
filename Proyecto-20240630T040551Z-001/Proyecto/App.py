@@ -1,6 +1,6 @@
 
 import requests
-
+import pickle
 from Clases.Alimento import Alimento
 from Clases.Bebida import Bebida
 from Clases.Equipo import Equipo
@@ -17,11 +17,14 @@ from Gestiones.GestionRestaurante import *
 class App():
     def __init__(self) -> None:
         self.leerDeTxt(self)
-        self.equipos = self.get_Equipos()
-        self.estadios = self.get_Estadios()
-        self.partidos = self.get_Partidos()
-        self.clientes = []
-        self.tickets = []
+        if self.equipos == []:
+
+            self.equipos = self.get_Equipos()
+            self.estadios = self.get_Estadios()
+            self.partidos = self.get_Partidos()
+            self.clientes = []
+            self.tickets = []
+        
 
     def start(self):
         gestionEstadio = GestionEstadioyPartido(self.partidos, self.equipos, self.estadios)
@@ -58,6 +61,7 @@ class App():
                     break
                 else:
                     raise Exception
+                self.guardarTXT()
             #except:
                 #print("Ingrese una opción válida")
 
@@ -148,3 +152,31 @@ class App():
                 return estadio
             
         return None
+    def leerDeTxt(self):
+        try:
+            with open('equiposDB.txt', 'rb') as f:
+                self.equipos = pickle.load(f)
+            
+            with open('estadiosDB.txt', 'rb') as f:
+                self.estadios = pickle.load(f)
+            
+            with open('partidosDB.txt', 'rb') as f:
+                self.partidos = pickle.load(f)
+            
+            with open('clientesDB.txt', 'rb') as f:
+                self.clientes = pickle.load(f)
+        except:
+            self.equipos = []
+    
+    def guardarTXT(self):
+        with open('equiposDB.txt', 'ab') as f:
+            pickle.dump(self.equipos, f)
+        
+        with open('estadiosDB.txt', 'ab') as f:
+            pickle.dump(self.estadios, f)
+       
+        with open('partidosDB.txt', 'ab') as f:
+            pickle.dump(self.partidos, f)
+       
+        with open('clientesDB.txt', 'ab') as f:
+            pickle.dump(self.clientes, f)
